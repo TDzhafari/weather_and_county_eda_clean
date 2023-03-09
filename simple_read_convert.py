@@ -1,7 +1,21 @@
 ###########################################################################
 #   Author: Timur Dzhafari
-#   Purpose: Climeate Data mining
-#   Date: 3/5/2023
+#   Purpose: Climate dataset cleaning
+#   Date: 3/9/2023
+#
+# todo: 1)transposing needs to be put into a callable function so that it can
+#       be run by both run_temp_cleaning and run_perc_cleaning.
+#
+#       2)get the housing datasets and merge with this temp and perc data.
+#
+#       3)exploratory analysis is needed (simple describe, info, dtypes) mb
+#       add visualizations and data dictionary if we want to be really fancy.
+#
+#       4)building time series models. (use OOP to do it once and replicate
+#         3 times for all 3 of our models)
+#
+# data sources: zillow - (need link)
+#               weather - (need link)
 ############################################################################
 
 import pandas as pd
