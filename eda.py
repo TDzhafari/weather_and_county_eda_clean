@@ -1,6 +1,7 @@
 import pandas as pd
 import datetime as dt
 import numpy as np
+import matplotlib.pyplot as plt
 
 # simply replace the directory in the string with the directory wher you have your datasets and execute the script.
 
@@ -76,20 +77,72 @@ def read_dfs_and_clean(dir):
     return (df_dict)
 
 
-def EDA(df):
+def EDA(county_name, df):
     """
     perform basic EDA on the dataset
     """
-    # read_dfs
-    pass
+    #df['Percip'] = df['Percip'].astype(np.float32)
+
+    # Print the shape of the DataFrame
+    print(f'Shape of the {county_name} dataset: \n {df.shape}')
+
+    # Print the data types of the columns
+    print(f'Data types of the {county_name} dataset: \n {df.dtypes}')
+
+    # Print the summary statistics of the numerical columns
+    print(
+        f'Summary statistics of the {county_name} dataset: \n {df.describe()}')
+
+    # Check for missing values
+    print(
+        f'Missing values of the {county_name} dataset: \n {df.isnull().sum()}')
+
+    # BELOW NEEDS FIXING
+
+    # # Create a figure with two subplots, sharing the y-axis
+    # fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10, 5), sharey=True)
+
+    # # Plot the first numerical column on the first subplot
+    # axs[0].hist(df['Avg_Temp'])
+    # axs[0].set_xlabel('Avg_Temp')
+    # axs[0].set_ylabel('Frequency')
+
+    # # Plot the second numerical column on the second subplot
+    # axs[1].hist(df['Precip'])
+    # axs[1].set_xlabel('Precip')
+    # axs[1].set_ylabel('Frequency')
+
+    # # Plot the third numerical column on the second subplot
+    # axs[2].hist(df['Max_Temp'])
+    # axs[2].set_xlabel('Max_Temp')
+    # axs[2].set_ylabel('Frequency')
+
+    # # Plot the third numerical column on the second subplot
+    # axs[3].hist(df['Housing Prices'])
+    # axs[3].set_xlabel('Housing Prices')
+    # axs[3].set_ylabel('Frequency')
+
+    # # Show the plot
+    # plt.show()
+
+    # plt.plot(df['Time Period'], df['Avg_Temp'])
+
+    # # Add labels and title
+    # plt.xlabel("Time Period")
+    # plt.ylabel("Average Temperature")
+    # plt.title("Average Temperature by Time Period")
+
+    # # Show plot
+    # plt.show()
 
 
 def main():
     county_data = read_dfs_and_clean(directory_w_data)
     for county in county_data.keys():
-        print(f'The {county} dataset is below \n {county_data.get(county)}')
-        print(
-            f'Info of {county} dataset is below \n {county_data.get(county).info()}')
+        EDA(county, county_data.get(county))
+        # print(f'The {county} dataset is below \n {county_data.get(county)}')
+        # print(
+        #     f'Info of {county} dataset is below \n {county_data.get(county).info()}')
 
 
 main()
