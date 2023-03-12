@@ -69,7 +69,7 @@ def read_dfs_and_clean(dir):
                        == 'T') & (shasta_df['Time Period'].dt.month == i)), 'Precip'] = month_average
 
     df_dict = {'Maricopa_AZ': maricopa_df,
-               'Miami_FL': shasta_df, 'Shasta_CA': shasta_df}
+               'Miami_FL': miami_df, 'Shasta_CA': shasta_df}
 
     # for key in df_dict.keys():
     #     df_dict.get(key).set_index['Month']
