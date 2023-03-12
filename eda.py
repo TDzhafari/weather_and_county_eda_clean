@@ -22,6 +22,11 @@ def read_dfs_and_clean(dir):
         maricopa_df['Time Period'], errors='coerce')
     maricopa_df['Month'] = maricopa_df['Time Period'].dt.strftime('%B')
 
+    print(maricopa_df.columns)
+
+    maricopa_df.loc[maricopa_df['Time Period'] == '7/31/2004',
+                    'Housing Prices'] = maricopa_df.loc[maricopa_df['Time Period'] == '7/31/2004', 'Housing Prices'].fillna(183041.7888)
+
     for i in range(1, 13):
         # Filter the data to get only the January rows
         month_data = maricopa_df.loc[maricopa_df['Time Period'].dt.month == i]
@@ -38,6 +43,10 @@ def read_dfs_and_clean(dir):
     miami_df['Time Period'] = pd.to_datetime(
         miami_df['Time Period'], errors='coerce')
     miami_df['Month'] = miami_df['Time Period'].dt.strftime('%B')
+
+    miami_df['Housing Price'].fillna(276517.2682, inplace=True)
+    miami_df.loc[miami_df['Time Period'] == '3/31/2018', 'Housing Price'] = miami_df.loc[miami_df['Time Period']
+                                                                                         == '3/31/2018', 'Housing Price'].fillna(276517.2682)
 
     for i in range(1, 13):
         # Filter the data to get only the January rows
@@ -81,7 +90,7 @@ def EDA(county_name, df):
     """
     perform basic EDA on the dataset
     """
-    #df['Percip'] = df['Percip'].astype(np.float32)
+    # df['Percip'] = df['Percip'].astype(np.float32)
 
     # Print the shape of the DataFrame
     print(f'Shape of the {county_name} dataset: \n {df.shape}')
