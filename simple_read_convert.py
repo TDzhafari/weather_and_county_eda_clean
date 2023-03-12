@@ -146,43 +146,46 @@ def run_percip_cleaning():
 ###########################################################################
 #           Transposing
 ###########################################################################
+def transpose_df(temp_df):
 
-# get the dataframe
-temp_df = run_temp_cleaning()
+    # remove "Annual" columns as it is not needed
+    temp_df.drop(columns=["Annual"], inplace=True)
 
-# remove "Annual" columns as it is not needed
-temp_df.drop(columns=["Annual"], inplace=True)
+    # transpose the dataframe
+    df_trans = temp_df.set_index('Year').T
 
-# transpose the dataframe
-df_trans = temp_df.set_index('Year').T
+    # get rid of calculated "Avg." column
+    df_trans.drop(columns=["Avg."], inplace=True)
 
-# get rid of calculated "Avg." column
-df_trans.drop(columns=["Avg."], inplace=True)
+    # check out transposed df
+    print(df_trans)
 
-# check out transposed df
-print(df_trans)
+    # create a date range with the start and end dates
+    date_range = pd.date_range(start='2000-01-01', end='2022-12-01', freq='MS')
 
-# create a date range with the start and end dates
-date_range = pd.date_range(start='2000-01-01', end='2022-12-01', freq='MS')
+    # vectorizing dataframe
+    arr = temp_df.to_numpy()
 
-# vectorizing dataframe
-arr = temp_df.to_numpy()
+    dict = {}
+    cnt1 = 0
 
-dict = {}
-cnt1 = 0
+    # a bit tired at this point. strftime should be moved to the dataframe. No need to call it on every iteration of the loop. Fix out of bounds error. No need for try-except block if the code is better.
+    try:
+        for year_data in arr:
+            for cnt in range(1, 13):
+                dict[date_range[cnt1].strftime('%m-%d-%Y')] = year_data[cnt]
+                cnt1 += 1
+    except IndexError as e:
+        print(
+            f" boooo! out of bounds error! :( check out the last successful datapoint added. Key: {str(date_range[cnt1-1].strftime('%m-%d-%Y'))}, Value: {year_data[cnt-1]}")
+        print(f' oh and here is the stack too: {e}')
 
-# a bit tired at this point. strftime should be moved to the dataframe. No need to call it on every iteration of the loop. Fix out of bounds error. No need for try-except block if the code is better.
-try:
-    for year_data in arr:
-        for cnt in range(1, 13):
-            dict[date_range[cnt1].strftime('%m-%d-%Y')] = year_data[cnt]
-            cnt1 += 1
-except IndexError as e:
-    print(
-        f" boooo! out of bounds error! :( check out the last successful datapoint added. Key: {str(date_range[cnt1-1].strftime('%m-%d-%Y'))}, Value: {year_data[cnt-1]}")
-    print(f' oh and here is the stack too: {e}')
+    # final_df is what we decided we wanted for the output to look like.
+    final_df = pd.DataFrame.from_dict(
+        dict, orient='index', columns=['temp_value'])
+    print(final_df.to_string())
 
 
-# final_df is what we decided we wanted for the output to look like.
-final_df = pd.DataFrame.from_dict(dict, orient='index', columns=['temp_value'])
-print(final_df.to_string())
+def main():
+    temp_df = run_temp_cleaning()
+    percip_df = run_percip_cleaning()
