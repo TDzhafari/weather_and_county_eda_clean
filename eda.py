@@ -38,6 +38,7 @@ def read_dfs_and_clean(dir):
         # Impute the 'T' values with the average precipitation
         maricopa_df.loc[((maricopa_df['Precip']
                         == 'T') & (maricopa_df['Time Period'].dt.month == i)), 'Precip'] = month_average
+    maricopa_df['Precip'] = pd.to_numeric(maricopa_df['Precip'])
 
     miami_df = pd.read_csv(dir + 'miami_dade_data.csv')
     miami_df['Time Period'] = pd.to_datetime(
@@ -77,6 +78,7 @@ def read_dfs_and_clean(dir):
         shasta_df.loc[((shasta_df['Precip']
                        == 'T') & (shasta_df['Time Period'].dt.month == i)), 'Precip'] = month_average
 
+    shasta_df['Precip'] = pd.to_numeric(shasta_df['Precip'])
     df_dict = {'Maricopa_AZ': maricopa_df,
                'Miami_FL': miami_df, 'Shasta_CA': shasta_df}
 
@@ -100,11 +102,13 @@ def EDA(county_name, df):
 
     # Print the summary statistics of the numerical columns
     print(
-        f'Summary statistics of the {county_name} dataset: \n {df.describe()}')
+        f'Summary statistics of the {county_name} dataset: \n {round(df.describe(),2)}')
 
     # Check for missing values
     print(
         f'Missing values of the {county_name} dataset: \n {df.isnull().sum()}')
+
+    print(f'Columns of {county_name} are {df.columns}')
 
     # BELOW NEEDS FIXING
 
