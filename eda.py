@@ -117,27 +117,27 @@ def EDA(county_name, df):
 
     # Plot the first numerical column on the first subplot
     axs[0].hist(df['Avg_Temp'])
-    axs[0].set_xlabel('Avg_Temp')
+    axs[0].set_xlabel(f'Avg_Temp {county_name}')
     axs[0].set_ylabel('Frequency')
 
     # Plot the second numerical column on the second subplot
     axs[1].hist(df['Precip'])
-    axs[1].set_xlabel('Precip')
+    axs[1].set_xlabel(f'Precip {county_name}')
     axs[1].set_ylabel('Frequency')
 
     # Plot the third numerical column on the second subplot
     axs[2].hist(df['Max_Temp'])
-    axs[2].set_xlabel('Max_Temp')
+    axs[2].set_xlabel(f'Max_Temp {county_name}')
     axs[2].set_ylabel('Frequency')
 
     # Plot the third numerical column on the second subplot
     if county_name == 'Miami_FL':
         axs[3].hist(df['Housing Price'])
-        axs[3].set_xlabel('Housing Price')
+        axs[3].set_xlabel(f'Housing Price {county_name}')
         axs[3].set_ylabel('Frequency')
     else:
         axs[3].hist(df['Housing Prices'])
-        axs[3].set_xlabel('Housing Prices')
+        axs[3].set_xlabel(f'Housing Prices {county_name}')
         axs[3].set_ylabel('Frequency')
 
     # Show the plot
@@ -147,7 +147,7 @@ def EDA(county_name, df):
 
     # Add labels and title
     plt.xlabel("Time Period")
-    plt.ylabel("Average Temperature")
+    plt.ylabel(f"Average Temperature {county_name}")
     plt.title("Average Temperature by Time Period")
 
     # Show plot
