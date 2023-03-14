@@ -153,6 +153,26 @@ def EDA(county_name, df):
     # Show plot
     plt.show()
 
+    plt.plot(df['Time Period'], df['Precip'])
+
+    # Add labels and title
+    plt.xlabel("Time Period")
+    plt.ylabel(f"Precipitation {county_name}")
+    plt.title("Precipitation by Time Period")
+
+    # Show plot
+    plt.show()
+
+    plt.plot(df['Time Period'], df['Max_Temp'])
+
+    # Add labels and title
+    plt.xlabel("Time Period")
+    plt.ylabel(f"Max Temperature {county_name}")
+    plt.title("Max Temperature by Time Period")
+
+    # Show plot
+    plt.show()
+
 
 def main():
     county_data = read_dfs_and_clean(directory_w_data)
