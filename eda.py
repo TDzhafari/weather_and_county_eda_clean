@@ -112,41 +112,46 @@ def EDA(county_name, df):
 
     # BELOW NEEDS FIXING
 
-    # # Create a figure with two subplots, sharing the y-axis
-    # fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10, 5), sharey=True)
+    # Create a figure with two subplots, sharing the y-axis
+    fig, axs = plt.subplots(nrows=1, ncols=4, figsize=(10, 5), sharey=True)
 
-    # # Plot the first numerical column on the first subplot
-    # axs[0].hist(df['Avg_Temp'])
-    # axs[0].set_xlabel('Avg_Temp')
-    # axs[0].set_ylabel('Frequency')
+    # Plot the first numerical column on the first subplot
+    axs[0].hist(df['Avg_Temp'])
+    axs[0].set_xlabel('Avg_Temp')
+    axs[0].set_ylabel('Frequency')
 
-    # # Plot the second numerical column on the second subplot
-    # axs[1].hist(df['Precip'])
-    # axs[1].set_xlabel('Precip')
-    # axs[1].set_ylabel('Frequency')
+    # Plot the second numerical column on the second subplot
+    axs[1].hist(df['Precip'])
+    axs[1].set_xlabel('Precip')
+    axs[1].set_ylabel('Frequency')
 
-    # # Plot the third numerical column on the second subplot
-    # axs[2].hist(df['Max_Temp'])
-    # axs[2].set_xlabel('Max_Temp')
-    # axs[2].set_ylabel('Frequency')
+    # Plot the third numerical column on the second subplot
+    axs[2].hist(df['Max_Temp'])
+    axs[2].set_xlabel('Max_Temp')
+    axs[2].set_ylabel('Frequency')
 
-    # # Plot the third numerical column on the second subplot
-    # axs[3].hist(df['Housing Prices'])
-    # axs[3].set_xlabel('Housing Prices')
-    # axs[3].set_ylabel('Frequency')
+    # Plot the third numerical column on the second subplot
+    if county_name == 'Miami_FL':
+        axs[3].hist(df['Housing Price'])
+        axs[3].set_xlabel('Housing Price')
+        axs[3].set_ylabel('Frequency')
+    else:
+        axs[3].hist(df['Housing Prices'])
+        axs[3].set_xlabel('Housing Prices')
+        axs[3].set_ylabel('Frequency')
 
-    # # Show the plot
-    # plt.show()
+    # Show the plot
+    plt.show()
 
-    # plt.plot(df['Time Period'], df['Avg_Temp'])
+    plt.plot(df['Time Period'], df['Avg_Temp'])
 
-    # # Add labels and title
-    # plt.xlabel("Time Period")
-    # plt.ylabel("Average Temperature")
-    # plt.title("Average Temperature by Time Period")
+    # Add labels and title
+    plt.xlabel("Time Period")
+    plt.ylabel("Average Temperature")
+    plt.title("Average Temperature by Time Period")
 
-    # # Show plot
-    # plt.show()
+    # Show plot
+    plt.show()
 
 
 def main():
