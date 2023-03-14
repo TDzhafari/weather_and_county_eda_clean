@@ -1,4 +1,5 @@
-# The following code is for a class.
+# This repos is version control and development of a code for a class assignment.
+
  Program: Data Science and Business Analytics
  Class: Advanced Business Intelligence
  Assignment: #2
