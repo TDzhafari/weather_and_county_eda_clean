@@ -9,6 +9,9 @@ directory_w_data = 'D:/School/UNCC/projects/repos/simple_pdf_read/datasets/'
 
 
 def read_dfs(dir):
+    """
+    This function gets the data from csv files in the directory and returns a dictionary with df's 
+    """
     maricopa_df = pd.read_csv(dir + 'Maricopa_county_data.csv')
     miami_df = pd.read_csv(dir + 'miami_dade_data.csv')
     shasta_df = pd.read_csv(dir + 'Shasta County_Redding CA.csv')
@@ -17,6 +20,9 @@ def read_dfs(dir):
 
 
 def read_dfs_and_clean(dir):
+    """
+    Clean the data from NA'
+    """
     maricopa_df = pd.read_csv(dir + 'Maricopa_county_data.csv')
     maricopa_df['Time Period'] = pd.to_datetime(
         maricopa_df['Time Period'], errors='coerce')
@@ -46,9 +52,13 @@ def read_dfs_and_clean(dir):
     miami_df['Month'] = miami_df['Time Period'].dt.strftime('%B')
 
     miami_df['Housing Price'].fillna(276517.2682, inplace=True)
+    # replacing a missing values with an average value of the housing price from month before and after the NA
     miami_df.loc[miami_df['Time Period'] == '3/31/2018', 'Housing Price'] = miami_df.loc[miami_df['Time Period']
                                                                                          == '3/31/2018', 'Housing Price'].fillna(276517.2682)
 
+    # the block of code is outdates. As it turn's out "T" values should be replaces with 0.
+
+    # for loop to generate subsets of the data for each month and get the average value for precipitaion to impute "T" values
     for i in range(1, 13):
         # Filter the data to get only the January rows
         month_data = miami_df.loc[miami_df['Time Period'].dt.month == i]
@@ -91,6 +101,7 @@ def read_dfs_and_clean(dir):
 def EDA(county_name, df):
     """
     perform basic EDA on the dataset
+    TODO: migrate to streamlit app.
     """
     # df['Percip'] = df['Percip'].astype(np.float32)
 
